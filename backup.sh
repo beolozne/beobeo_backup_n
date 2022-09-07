@@ -1,8 +1,8 @@
 #!/bin/bash
 
 DATE=$(date +%Y-%m-%d-%H-%M)
-DATADIR=$HOME/.near
-BACKUPDIR=$HOME/backups/near_${DATE}
+DATADIR=.near
+BACKUPDIR=$HOME/backups/
 
 mkdir $BACKUPDIR
 
@@ -14,8 +14,10 @@ echo "NEAR node was stopped" | ts
 
 if [ -d "$BACKUPDIR" ]; then
     echo "Backup Near BEOBEO started" | ts
+    echo "Compressing backup...."
+    tar -zcvf /root/backups/near_${DATE}.tar.gz -C $HOME/.near/data .
 
-    cp -rf $DATADIR/data/ ${BACKUPDIR}/
+    # cp -rf $DATADIR/data/ ${BACKUPDIR}/
 
     # Submit backup completion status, you can use healthchecks.io, betteruptime.com or other services
     # Example
